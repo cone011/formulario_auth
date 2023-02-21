@@ -1,16 +1,19 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const path = require("path");
+require("./user");
+const routes = require("./routes");
+
+mongoose.connect(
+  process.env.MONGODB_URL || "mongodb://localhost:27017/registrations",
+  { useNewUrlParser: true }
+);
+
 const app = express();
-
-const { getAll, create } = require("./controllers/user");
-
-// views
 app.set("view engine", "pug");
 app.set("views", "views");
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use("/", routes);
 
-// routes
-app.get("/", getAll);
-app.get("/register", async (req, res) => res.render("register"));
-app.post("/register", create);
-
-app.listen(3000, () => console.log("Listening on port 3000!"));
+app.listen(3000, () => console.log("Listening on port 3000 ..."));
