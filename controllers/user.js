@@ -1,8 +1,8 @@
-const UserService = require("../services/UserService");
+const UserService = require("../services/user");
 
-const getAllUsuarios = async (req, res) => {
+const getAll = async (req, res) => {
   try {
-    const data = await UserService.getAllUsuarios();
+    const data = await UserService.getAll();
     res.render("index", { list: data });
   } catch (error) {
     res.render("index", { list: [] });
@@ -10,14 +10,14 @@ const getAllUsuarios = async (req, res) => {
   }
 };
 
-const createUsuario = async (req, res) => {
+const create = async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const data = UserService.createUsuario({ name, email, password });
+    const data = UserService.create({ name, email, password });
     data && res.redirect("/");
   } catch (error) {
     res.status(500).json(error?.message).end();
   }
 };
 
-module.exports = { getAllUsuarios, createUsuario };
+module.exports = { getAll, create };
