@@ -6,7 +6,7 @@ const { getAll, create } = require("./controllers/user");
 // views
 app.set("view engine", "pug");
 app.set("views", "views");
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded());
 
 // routes
 app.get("/", getAll);
