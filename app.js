@@ -10,7 +10,6 @@ app.set("view engine", "pug");
 app.set("views", "views");
 app.use(express.urlencoded({ extended: false }));
 
-// routes
 app.get("/", getAllUsuarios);
 app.get("/register", async (req, res) => res.render("register"));
 app.post("/register", createUsuario);
